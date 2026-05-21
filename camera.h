@@ -12,12 +12,11 @@ typedef struct _tCam{
 } tCamera3d;
 #endif // tCam
 
-
-//Aloca a estrutura de memória para representar a câmera
+//Aloca a estrutura de memï¿½ria para representar a cï¿½mera
 tCamera3d *criaCamera();
 
-//Recebe os parâmetros específicos da câmera e calcula viewMatrix
+//Recebe os parï¿½metros especï¿½ficos da cï¿½mera e calcula viewMatrix
 void defineCamera(tCamera3d *camera, float posX, float posY, float posZ, float focX, float focY, float focZ, float cimX, float cimY, float cimZ);
 
-//Desaloca a câmera
+//Desaloca a cï¿½mera
 void desalocaCamera(tCamera3d *objeto);

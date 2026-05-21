@@ -13,13 +13,13 @@ void desenhaObjetoTela(SDL_Renderer *renderer, float **matriz, tObjeto3d *objeto
 int main( int argc, char * argv[] ){
 
     if (SDL_Init( SDL_INIT_EVERYTHING) < 0){
-        printf("SDL não inicializou! SDL Erro: %s\n", SDL_GetError());
+        printf("SDL nï¿½o inicializou! SDL Erro: %s\n", SDL_GetError());
     }
 
     SDL_Window *window = criaTela("Hello SDL World!");
 
     if(window == NULL){
-        printf("SDL não criou a janela! SDL Erro: %s\n", SDL_GetError());
+        printf("SDL nï¿½o criou a janela! SDL Erro: %s\n", SDL_GetError());
         return EXIT_FAILURE;
     }
 

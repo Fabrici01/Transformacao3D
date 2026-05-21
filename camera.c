@@ -1,11 +1,57 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <SDL2/SDL.h>
+#include "camera.h"
 
-//Aloca a estrutura de memória para representar a câmera
-tCamera3d *criaCamera();
+//Aloca a estrutura de memï¿½ria para representar a cï¿½mera
+tCamera3d *criaCamera(){
 
-//Recebe os parâmetros específicos da câmera e calcula viewMatrix
-void defineCamera(tCamera3d *camera, float posX, float posY, float posZ, float focX, float focY, float focZ, float cimX, float cimY, float cimZ);
+    tCamera3d *camera = (tCamera3d *)malloc(sizeof(tCamera3d));
+    if(camera == NULL){
+        printf("Erro ao criar camera\n");
+        return NULL;
+    }
 
-//Desaloca a câmera
-void desalocaCamera(tCamera3d *objeto);
+    // Multiplica-se por 3, pois se trata de 3 dimensÃµes
+    camera->posicao = (float*)malloc(sizeof(float)*3);
+    camera->foco = (float*)malloc(sizeof(float)*3);
+    camera->cima = (float*)malloc(sizeof(float)*3);
+
+    //Agora sÃ£o 4 dimensÃµes, (x, y,z, w);
+    camera->viewMatrix = (float**)malloc(sizeof(float*)*4);
+    for(int i = 0; i < 4; i++){
+    	camera->viewMatrix[i] = (float*)malloc(sizeof(float)*4);
+    }
+
+    return camera;
+}
+
+//Recebe os parï¿½metros especï¿½ficos da cï¿½mera e calcula viewMatrix
+void defineCamera(tCamera3d *camera, float posX, float posY, float posZ, float focX, float focY, float focZ, float cimX, float cimY, float cimZ){
+	camera->posicao[0] = posX;
+	camera->posicao[1] = posY;
+	camera->posicao[2] = posZ;
+
+	camera->foco[0] = focX;
+	camera->foco[1] = focY;
+	camera->foco[2] = focZ;
+
+	camera->cima[0] = cimX;
+	camera->cima[1] = cimY;
+	camera->cima[2] = cimZ;
+
+	//CÃ¡lculo ViewMatrix;	
+}
+
+//Desaloca a cï¿½mera
+void desalocaCamera(tCamera3d *objeto){
+	for(int i = 0; i < 4; i++){
+		free(objeto->viewMatrix[i]);
+	}
+
+	free(objeto->viewMatrix);
+	free(objeto->cima);
+	free(objeto->foco);
+	free(objeto->posicao);
+	free(objeto);
+}
