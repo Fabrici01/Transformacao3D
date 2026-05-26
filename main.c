@@ -11,15 +11,14 @@ void desenhaObjetoTela(SDL_Renderer *renderer, float **matriz, tObjeto3d *objeto
 
 
 int main( int argc, char * argv[] ){
-
     if (SDL_Init( SDL_INIT_EVERYTHING) < 0){
-        printf("SDL n�o inicializou! SDL Erro: %s\n", SDL_GetError());
+        printf("SDL nao inicializou! SDL Erro: %s\n", SDL_GetError());
     }
 
     SDL_Window *window = criaTela("Hello SDL World!");
 
     if(window == NULL){
-        printf("SDL n�o criou a janela! SDL Erro: %s\n", SDL_GetError());
+        printf("SDL nao criou a janela! SDL Erro: %s\n", SDL_GetError());
         return EXIT_FAILURE;
     }
 
@@ -45,6 +44,9 @@ int main( int argc, char * argv[] ){
 
     desalocaTela(window);
     SDL_Quit();
+
+    tObjeto3d *obj = carregaObjeto("cubo.dcg");
+    imprimeObjetoDBG(obj);
 
     return EXIT_SUCCESS;
 }

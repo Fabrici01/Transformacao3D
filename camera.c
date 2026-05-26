@@ -3,7 +3,7 @@
 #include <SDL2/SDL.h>
 #include "camera.h"
 
-//Aloca a estrutura de mem�ria para representar a c�mera
+//Aloca a estrutura de memoria para representar a cemera
 tCamera3d *criaCamera(){
 
     tCamera3d *camera = (tCamera3d *)malloc(sizeof(tCamera3d));
@@ -26,7 +26,7 @@ tCamera3d *criaCamera(){
     return camera;
 }
 
-//Recebe os par�metros espec�ficos da c�mera e calcula viewMatrix
+//Recebe os parametros especificos da camera e calcula viewMatrix
 void defineCamera(tCamera3d *camera, float posX, float posY, float posZ, float focX, float focY, float focZ, float cimX, float cimY, float cimZ){
 	camera->posicao[0] = posX;
 	camera->posicao[1] = posY;
@@ -40,10 +40,10 @@ void defineCamera(tCamera3d *camera, float posX, float posY, float posZ, float f
 	camera->cima[1] = cimY;
 	camera->cima[2] = cimZ;
 
-	//Cálculo ViewMatrix;	
+	//Criação de matrizes usando criaIdentidade4d;
 }
 
-//Desaloca a c�mera
+//Desaloca a camera
 void desalocaCamera(tCamera3d *objeto){
 	for(int i = 0; i < 4; i++){
 		free(objeto->viewMatrix[i]);

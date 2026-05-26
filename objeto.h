@@ -18,13 +18,13 @@ typedef struct _tObj{
 } tObjeto3d;
 #endif // tObj
 
-//Lê as informações de um arquivo e as carrega num novo objeto alocado
+//Le as informacoes de um arquivo e as carrega num novo objeto alocado
 tObjeto3d *carregaObjeto(char *nomeArquivo);
 
-//Altera a modelMatrix de um objeto para redimenciona-lo segundo os parâmetros escalaX, escalaY e escalaZ
+//Altera a modelMatrix de um objeto para redimenciona-lo segundo os parï¿½metros escalaX, escalaY e escalaZ
 void escalaObjeto(tObjeto3d *objeto, float escalaX, float escalaY, float escalaZ);
 
-//Altera a modelMatrix de um objeto para translada-lo segundo os parâmetros transX, transY e transZ
+//Altera a modelMatrix de um objeto para translada-lo segundo os parï¿½metros transX, transY e transZ
 void transladaObjeto(tObjeto3d *objeto, float transX, float transY, float transZ);
 
 //Altera a modelMatrix de um objeto para rotaciona-lo ao redor do eixo X segundo o angulo informado
