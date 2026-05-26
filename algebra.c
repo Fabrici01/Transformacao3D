@@ -20,12 +20,20 @@ void criaIdentidade4d(float **novaMatriz){
 
 //Imprime uma matriz 4d no terminal
 void imprimeMatriz4dDBG(float **matriz){
-
+    printf("\n===============IMPRIMINDO MATRIZ===============\n");
+    for (int i = 0; i < 4; i++)
+    {
+        for (int j = 0; j < 4; j++)
+        {
+            printf("%f ", matriz[i][j]);
+        }
+        printf("\n");
+    }
 }
 
 //Multiplica uma matriz 4d por um ponto
 float *multMatriz4dPonto(float **matriz, float *ponto){
-
+    
 }
 
 //Multiplica duas matrizes 4d salvando o resultado na segunda matriz
