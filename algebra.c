@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 
 //Ajusta valores de um matriz 4d para uma matriz identidade
 void criaIdentidade4d(float **novaMatriz){
@@ -67,3 +68,52 @@ void multMatriz4d(float **matrizA, float **matrizB){
         }
     }
 }
+
+void normalizarVetor3D(float* vetor){
+    float soma = 0.0;
+
+    for(int x=0; x<3; x++){
+        soma += vetor[x] * vetor[x];
+    }
+
+    float tamanho = sqrt(soma);
+
+    if(tamanho!=0){
+        for(int x=0; x<3; x++){
+            vetor[x] /= tamanho;
+        }
+    }
+}
+
+double produtoEscalar3D(float* vetor1, float* vetor2){
+    double resultado = 0.0;
+
+    for(int x=0; x<3; x++){
+        resultado += vetor1[x] * vetor2[x];
+    }
+
+    return resultado;
+}
+
+
+float* produtoVetorial3D(float* vetor1, float* vetor2){
+    float* resultado = (float*) malloc(3 * sizeof(float));
+
+    resultado[0] = (vetor1[1] * vetor2[2]) - (vetor1[2] * vetor2[1]);
+    resultado[1] = (vetor1[2] * vetor2[0]) - (vetor1[0] * vetor2[2]);
+    resultado[2] = (vetor1[0] * vetor2[1]) - (vetor1[1] * vetor2[0]);
+
+    return resultado;
+}
+
+float* subtracaoVetorial3D(float* vetor1, float* vetor2){
+    float* resultado = (float*) malloc(3 * sizeof(float));
+
+    resultado[0] = vetor1[0] - vetor2[0];
+    resultado[1] = vetor1[1] - vetor2[1];
+    resultado[2] = vetor1[2] - vetor2[2];
+    
+    return resultado;
+}
+
+

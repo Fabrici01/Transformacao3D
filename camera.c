@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <SDL2/SDL.h>
 #include "camera.h"
+#include "algebra.h"
 
 //Aloca a estrutura de memoria para representar a cemera
 tCamera3d *criaCamera(){
@@ -40,6 +41,38 @@ void defineCamera(tCamera3d *camera, float posX, float posY, float posZ, float f
 	camera->cima[1] = cimY;
 	camera->cima[2] = cimZ;
 
+	float* n = subtracaoVetorial3D(camera->posicao,camera->foco);
+	normalizarVetor3D(n);
+
+	float* u = produtoVetorial3D(camera->cima, n);
+	normalizarVetor3D(u);
+
+	float* v = produtoVetorial3D(n, u);
+	normalizarVetor3D(v);
+
+	camera->viewMatrix[0][0] = u[0];
+	camera->viewMatrix[0][1] = u[1];
+	camera->viewMatrix[0][2] = u[2];
+	camera->viewMatrix[0][3] = -1.0 * produtoEscalar3D(u, camera->posicao);
+
+	camera->viewMatrix[1][0] = v[0];
+	camera->viewMatrix[1][1] = v[1];
+	camera->viewMatrix[1][2] = v[2];
+	camera->viewMatrix[1][3] = -1.0 * produtoEscalar3D(v, camera->posicao);
+
+	camera->viewMatrix[2][0] = n[0];
+	camera->viewMatrix[2][1] = n[1];
+	camera->viewMatrix[2][2] = n[2];
+	camera->viewMatrix[2][3] = -1.0 * produtoEscalar3D(n, camera->posicao);
+
+	camera->viewMatrix[3][0] = 0;
+	camera->viewMatrix[3][1] = 0;
+	camera->viewMatrix[3][2] = 0;
+	camera->viewMatrix[3][3] = 1;
+
+	free(u);
+	free(n);
+	free(v);
 	//Criação de matrizes usando criaIdentidade4d;
 }
 
