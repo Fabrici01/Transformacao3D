@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 //Ajusta valores de um matriz 4d para uma matriz identidade
 void criaIdentidade4d(float **novaMatriz){
@@ -25,7 +26,7 @@ void imprimeMatriz4dDBG(float **matriz){
     {
         for (int j = 0; j < 4; j++)
         {
-            printf("%f ", matriz[i][j]);
+            printf("%.2f ", matriz[i][j]);
         }
         printf("\n");
     }
