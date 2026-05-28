@@ -13,17 +13,15 @@ float** criarProjMartrixPerspectiva(float left, float right, float bottom, float
 
 
 //desenha um objeto na tela
-void desenhaObjetoTela(SDL_Renderer *renderer, float **matriz, tObjeto3d *objeto){
-
-}
+void desenhaObjetoTela(SDL_Renderer *renderer, float **matrizProjecao, tCamera3d *camera, tObjeto3d *objeto);
 
 
 int main( int argc, char * argv[] ){
-    int x1, x2;
-    int y1, y2;
     tObjeto3d *obj = carregaObjeto("cubo.dcg");
     tCamera3d *cam = criaCamera();
     defineCamera(cam, 20, 15, 25, 0, 0, 6, 0, 1, 0);
+
+    float** matrizProj = criarProjMartrixOrtogonal(-16, 16, -12, 12, 1, 50);
 
 
     if (SDL_Init( SDL_INIT_EVERYTHING) < 0){
@@ -47,15 +45,12 @@ int main( int argc, char * argv[] ){
                 break;
             }
         }
-        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+        SDL_SetRenderDrawColor(renderer, 242, 242, 242, 255);
         SDL_RenderClear(renderer);
 
         SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 
         //ESCREVA AQUI O SEU PROGRAMA
-        
-
-        SDL_RenderDrawLine(renderer, x1, y1, x2, y2);
 
         SDL_RenderPresent(renderer);
     }
@@ -102,4 +97,12 @@ float** criarProjMartrixPerspectiva(float left, float right, float bottom, float
     matriz[3][2] = -1;
 
     return matriz;
+}
+
+void desenhaObjetoTela(SDL_Renderer *renderer, float **matrizProjecao, tCamera3d *camera, tObjeto3d *objeto){
+    int x1, x2;
+    int y1, y2;
+    //SDL_RenderDrawLine(renderer, x1, y1, x2, y2);
+
+    
 }

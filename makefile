@@ -1,7 +1,7 @@
 all: compila
 
 compila: algebra.o camera.o colaTrabalho.o main.o objeto.o tela.o
-	gcc -I src/include algebra.o camera.o colaTrabalho.o main.o objeto.o tela.o -o prog -lSDL2 -lm
+	gcc -I src/include -L src/lib algebra.o camera.o colaTrabalho.o main.o objeto.o tela.o -o prog -lmingw32 -lSDL2main -lSDL2
 
 algebra.o: algebra.c
 	gcc -c algebra.c
@@ -21,5 +21,5 @@ objeto.o: objeto.c
 tela.o: tela.c
 	gcc -c tela.c -I src/include
 rm:
-	rm -f *.o prog
-	
+	rm *.o prog
+

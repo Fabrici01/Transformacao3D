@@ -4,20 +4,9 @@
 
 //Ajusta valores de um matriz 4d para uma matriz identidade
 void criaIdentidade4d(float **novaMatriz){
-    for (int i = 0; i < 4; i++)
-    {
-        for (int j = 0; j < 4; j++)
-        {
-            if (i==j)
-            {
-                novaMatriz[i][j] = 1;
-            }
-            else
-            {
-                novaMatriz[i][j] = 0;
-            }
-        }
-    }
+    novaMatriz = (float**) calloc(4, sizeof(float*));
+    for(int x=0; x<4; x++) novaMatriz[x] = (float*) calloc(4, sizeof(float));
+    for(int x=0; x<4; x++) novaMatriz[x][x] = 1;
 }
 
 //Imprime uma matriz 4d no terminal

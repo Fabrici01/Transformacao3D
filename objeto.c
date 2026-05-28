@@ -217,8 +217,15 @@ void desalocaObjeto(tObjeto3d *objeto){
         free(objeto->arestas[i]);
     }
 
+    for(int i = 0; i < 4; i++){
+        free(objeto->modelMatrix[i]);
+    }
+    free(objeto->modelMatrix);
+
     free(objeto->pontos);
     free(objeto->arestas);
+    free(objeto->transl);
+    free(objeto->escala);
 
     //Faltam as outras 
 
