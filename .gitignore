@@ -3,3 +3,4 @@
 makefile
 *.exe
 src/
+SDL2.dll
