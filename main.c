@@ -102,7 +102,25 @@ float** criarProjMartrixPerspectiva(float left, float right, float bottom, float
 void desenhaObjetoTela(SDL_Renderer *renderer, float **matrizProjecao, tCamera3d *camera, tObjeto3d *objeto){
     int x1, x2;
     int y1, y2;
+    float ponto[4];
+    float **matrizPontos = (float**) malloc(objeto->nPontos * sizeof(float*));
     //SDL_RenderDrawLine(renderer, x1, y1, x2, y2);
 
+    //Copia matriz de pontos do objeto para matrizPontos
+    for(int x=0; x<objeto->nPontos; x++){
+        matrizPontos[x] = (float*) malloc(3 * sizeof(float));
+        matrizPontos[x][0] = objeto->pontos[x][0];
+        matrizPontos[x][1] = objeto->pontos[x][1];
+        matrizPontos[x][2] = objeto->pontos[x][2];
+    }
     
+    for(int x=0; x<objeto->nPontos; x++){
+        for(int y=0; y<4; y++) ponto[y] = objeto->pontos[x][y];
+
+        multMatriz4dPonto(objeto->modelMatrix, ponto);
+        multMatriz4dPonto(camera->viewMatrix, ponto);
+        multMatriz4dPonto(matrizProjecao, ponto);
+
+        for(int y=0; y<4; y++) matrizPontos[x][y] = ponto[y];
+    }
 }
