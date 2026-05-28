@@ -1,6 +1,6 @@
 .vscode/
 *.o
-makefile
+./makefile
 *.exe
 src/
 SDL2.dll
