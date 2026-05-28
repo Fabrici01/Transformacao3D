@@ -34,6 +34,18 @@ tObjeto3d *carregaObjeto(char *nomeArquivo){
         fscanf(f, "%d", &obj->arestas[i][1]);
     }
 
+    obj->transl = (float*) calloc(3, sizeof(float));
+
+    obj->escala = (float*) calloc(3, sizeof(float));
+    for(int x=0; x<3; x++)obj->escala[x] = 1.0;
+
+    obj->Rx = 0.0;
+    obj->Ry = 0.0;
+    obj->Rz = 0.0;
+
+
+    criaIdentidade4d(obj->modelMatrix);
+    
     //Falta ModelMatrix, Transl, Escala, Rx, Ry e Rz
 
     fclose(f);

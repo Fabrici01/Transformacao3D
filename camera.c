@@ -41,6 +41,7 @@ void defineCamera(tCamera3d *camera, float posX, float posY, float posZ, float f
 	camera->cima[1] = cimY;
 	camera->cima[2] = cimZ;
 
+	//Não sei se está correto
 	float* n = subtracaoVetorial3D(camera->posicao,camera->foco);
 	normalizarVetor3D(n);
 

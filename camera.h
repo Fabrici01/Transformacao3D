@@ -9,6 +9,7 @@ typedef struct _tCam{
 	float *foco;
 	float *cima;
 	float **viewMatrix;
+	int opcao;
 } tCamera3d;
 #endif // tCam
 
