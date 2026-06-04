@@ -40,18 +40,38 @@ int main( int argc, char * argv[] ){
     SDL_Event windowEvent;
 
     while(1){
-        if( SDL_PollEvent(&windowEvent)){
+        if(SDL_PollEvent(&windowEvent)){
             if(windowEvent.type == SDL_QUIT){
                 break;
+            }
+            if(windowEvent.type == SDL_KEYDOWN){
+                switch(windowEvent.key.keysym.sym){
+                    // Translação
+                    case SDLK_w: transladaObjeto(obj,  0,  1,  0); break;
+                    case SDLK_s: transladaObjeto(obj,  0, -1,  0); break;
+                    case SDLK_a: transladaObjeto(obj, -1,  0,  0); break;
+                    case SDLK_d: transladaObjeto(obj,  1,  0,  0); break;
+                    case SDLK_q: transladaObjeto(obj,  0,  0,  1); break;
+                    case SDLK_e: transladaObjeto(obj,  0,  0, -1); break;
+                    // Rotação
+                    case SDLK_UP:    rotacionaObjetoEixoX(obj,  5); break;
+                    case SDLK_DOWN:  rotacionaObjetoEixoX(obj, -5); break;
+                    case SDLK_LEFT:  rotacionaObjetoEixoY(obj,  5); break;
+                    case SDLK_RIGHT: rotacionaObjetoEixoY(obj, -5); break;
+                    case SDLK_z:     rotacionaObjetoEixoZ(obj,  5); break;
+                    case SDLK_x:     rotacionaObjetoEixoZ(obj, -5); break;
+                    // Escala
+                    case SDLK_PLUS:
+                    case SDLK_KP_PLUS: escalaObjeto(obj, 1.1f, 1.1f, 1.1f); break;
+                    case SDLK_MINUS:
+                    case SDLK_KP_MINUS: escalaObjeto(obj, 0.9f, 0.9f, 0.9f); break;
+                }
             }
         }
         SDL_SetRenderDrawColor(renderer, 242, 242, 242, 255);
         SDL_RenderClear(renderer);
-
-        SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-
-        //ESCREVA AQUI O SEU PROGRAMA
-
+        SDL_SetRenderDrawColor(renderer, 30, 30, 30, 255);
+        desenhaObjetoTela(renderer, matrizProj, cam, obj);
         SDL_RenderPresent(renderer);
     }
 
@@ -100,18 +120,17 @@ float** criarProjMartrixPerspectiva(float left, float right, float bottom, float
 }
 
 void desenhaObjetoTela(SDL_Renderer *renderer, float **matrizProjecao, tCamera3d *camera, tObjeto3d *objeto){
-    int x1, x2;
-    int y1, y2;
     float ponto[4];
     float **matrizPontos = (float**) malloc(objeto->nPontos * sizeof(float*));
     //SDL_RenderDrawLine(renderer, x1, y1, x2, y2);
 
     //Copia matriz de pontos do objeto para matrizPontos
     for(int x=0; x<objeto->nPontos; x++){
-        matrizPontos[x] = (float*) malloc(3 * sizeof(float));
+        matrizPontos[x] = (float*) malloc(4 * sizeof(float));
         matrizPontos[x][0] = objeto->pontos[x][0];
         matrizPontos[x][1] = objeto->pontos[x][1];
         matrizPontos[x][2] = objeto->pontos[x][2];
+        matrizPontos[x][3] = objeto->pontos[x][3];
     }
     
     for(int x=0; x<objeto->nPontos; x++){
@@ -123,4 +142,22 @@ void desenhaObjetoTela(SDL_Renderer *renderer, float **matrizProjecao, tCamera3d
 
         for(int y=0; y<4; y++) matrizPontos[x][y] = ponto[y];
     }
+
+    for (int i = 0; i < objeto->nArestas; i++) {
+        int v1 = objeto->arestas[i][0];
+        int v2 = objeto->arestas[i][1];
+
+        float w1 = matrizPontos[v1][3];
+        float w2 = matrizPontos[v2][3];
+
+        int x1 = (int)((matrizPontos[v1][0] / w1 + 1.0f) * WIDTH  / 2.0f);
+        int y1 = (int)((1.0f - matrizPontos[v1][1] / w1) * HEIGHT / 2.0f);
+        int x2 = (int)((matrizPontos[v2][0] / w2 + 1.0f) * WIDTH  / 2.0f);
+        int y2 = (int)((1.0f - matrizPontos[v2][1] / w2) * HEIGHT / 2.0f);
+
+        SDL_RenderDrawLine(renderer, x1, y1, x2, y2);
+    }
+
+    for (int i = 0; i < objeto->nPontos; i++) free(matrizPontos[i]);
+    free(matrizPontos);
 }

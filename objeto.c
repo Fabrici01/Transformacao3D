@@ -19,10 +19,11 @@ tObjeto3d *carregaObjeto(char *nomeArquivo){
     obj->pontos = (float**)malloc(obj->nPontos * sizeof(float*));
 
     for(int i = 0; i < obj->nPontos; i++){
-    	obj->pontos[i] = (float*)malloc(3 * sizeof(float));
+    	obj->pontos[i] = (float*)malloc(4 * sizeof(float));
 	    fscanf(f, "%f", &obj->pontos[i][0]);
     	fscanf(f, "%f", &obj->pontos[i][1]);
 	    fscanf(f, "%f", &obj->pontos[i][2]);
+        obj->pontos[i][3] = 1.0f;
     }
 
     fscanf(f, "%d", &obj->nArestas);
@@ -43,10 +44,7 @@ tObjeto3d *carregaObjeto(char *nomeArquivo){
     obj->Ry = 0.0;
     obj->Rz = 0.0;
 
-
-    criaIdentidade4d(obj->modelMatrix);
-    
-    //Falta ModelMatrix, Transl, Escala, Rx, Ry e Rz
+    obj->modelMatrix = criaIdentidade4d();
 
     fclose(f);
     return obj;

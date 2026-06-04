@@ -3,10 +3,13 @@
 #include <math.h>
 
 //Ajusta valores de um matriz 4d para uma matriz identidade
-void criaIdentidade4d(float **novaMatriz){
-    novaMatriz = (float**) calloc(4, sizeof(float*));
-    for(int x=0; x<4; x++) novaMatriz[x] = (float*) calloc(4, sizeof(float));
-    for(int x=0; x<4; x++) novaMatriz[x][x] = 1;
+float **criaIdentidade4d(){
+    float **novaMatriz = (float**) calloc(4, sizeof(float*));
+    for(int x=0; x<4; x++){
+        novaMatriz[x] = (float*) calloc(4, sizeof(float));
+        novaMatriz[x][x] = 1.0f;
+    }
+    return novaMatriz;
 }
 
 //Imprime uma matriz 4d no terminal
@@ -23,10 +26,8 @@ void imprimeMatriz4dDBG(float **matriz){
 }
 
 //Multiplica uma matriz 4d por um ponto
-void *multMatriz4dPonto(float **matriz, float *ponto){
-    float resultado[4];
-    for(int x=0; x<4; x++) resultado[x] = ponto[x];
-
+void multMatriz4dPonto(float **matriz, float *ponto){
+    float resultado[4] = {0};
     for (int i = 0; i < 4; i++)
     {
         for (int j = 0; j < 4; j++)
@@ -34,8 +35,10 @@ void *multMatriz4dPonto(float **matriz, float *ponto){
             resultado[i] += matriz[i][j] * ponto[j];
         }
     }
-
-    for(int x=0; x<0; x++) ponto[x] = resultado[x];
+    for(int x=0; x<4; x++)
+    {
+        ponto[x] = resultado[x];
+    }
 }
 
 //Multiplica duas matrizes 4d salvando o resultado na segunda matriz

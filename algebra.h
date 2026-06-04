@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 //Ajusta valores de um matriz 4d para uma matriz identidade
-void criaIdentidade4d(float **novaMatriz);
+float **criaIdentidade4d();
 
 //Imprime uma matriz 4d no terminal
 void imprimeMatriz4dDBG(float **matriz);
