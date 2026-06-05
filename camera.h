@@ -21,3 +21,9 @@ void defineCamera(tCamera3d *camera, float posX, float posY, float posZ, float f
 
 //Desaloca a camera
 void desalocaCamera(tCamera3d *objeto);
+
+void transladaCamera(tCamera3d *cam, float transX, float transY, float transZ);
+
+void rotacionaCameraoEixoX(tCamera3d *cam, float angulo);
+void rotacionaCameraoEixoY(tCamera3d *cam, float angulo);
+void rotacionaCameraoEixoZ(tCamera3d *cam, float angulo);

@@ -83,7 +83,7 @@ void normalizarVetor3D(float* vetor){
 double produtoEscalar3D(float* vetor1, float* vetor2){
     double resultado = 0.0;
 
-    for(int x=0; x<3; x++){
+    for(int x = 0; x < 3; x++){
         resultado += vetor1[x] * vetor2[x];
     }
 

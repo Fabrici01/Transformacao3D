@@ -74,7 +74,7 @@ void escalaObjeto(tObjeto3d *objeto, float escalaX, float escalaY, float escalaZ
     free(matriz);
 }
 
-//Altera a modelMatrix de um objeto para translada-lo segundo os par�metros transX, transY e transZ
+//Altera a modelMatrix de um objeto para translada-lo segundo os parametros transX, transY e transZ
 void transladaObjeto(tObjeto3d *objeto, float transX, float transY, float transZ){
     //Cria uma matriz 4x4 com 0's
     float** matriz = (float**) calloc(4, sizeof(float*));
@@ -101,9 +101,8 @@ void transladaObjeto(tObjeto3d *objeto, float transX, float transY, float transZ
     free(matriz);
 }
 
-//Altera a modelMatrix de um objeto para rotaciona-lo ao redor do eixo X segundo o angulo  (Passar angulo em graus)
-void rotacionaObjetoEixoX(tObjeto3d *objeto, float angulo){
-    float radiano = angulo * (M_PI / 180.0);
+void rotacionaObjetoEixoX(tObjeto3d *objeto, float angulo) {
+   float radiano = angulo * (M_PI / 180.0);
 
     //Cria uma matriz 4x4 com 0's
     float** matriz = (float**) calloc(4, sizeof(float*));
@@ -120,7 +119,7 @@ void rotacionaObjetoEixoX(tObjeto3d *objeto, float angulo){
     matriz[3][3] = 1;
 
     //Realiza a multiplicação
-    multMatriz4d(matriz, objeto->modelMatrix);    
+    multMatriz4d(matriz, objeto->modelMatrix);
 
     //Libera memória
     for(int x=0; x<4; x++){

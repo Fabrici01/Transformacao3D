@@ -11,7 +11,6 @@ float** criarProjMartrixOrtogonal(float left, float right, float bottom, float t
 //Cria Matriz Perspectiva de projeção
 float** criarProjMartrixPerspectiva(float left, float right, float bottom, float top, float near, float far);
 
-
 //desenha um objeto na tela
 void desenhaObjetoTela(SDL_Renderer *renderer, float **matrizProjecao, tCamera3d *camera, tObjeto3d *objeto);
 
@@ -21,7 +20,8 @@ int main( int argc, char * argv[] ){
     tCamera3d *cam = criaCamera();
     defineCamera(cam, 20, 15, 25, 0, 0, 6, 0, 1, 0);
 
-    float** matrizProj = criarProjMartrixOrtogonal(-16, 16, -12, 12, 1, 50);
+    //float** matrizProj = criarProjMartrixOrtogonal(-16, 16, -12, 12, 1, 50);
+    float** matrizProj = criarProjMartrixPerspectiva(-1, 1, -1, 1, 1, 50);
 
 
     if (SDL_Init( SDL_INIT_EVERYTHING) < 0){
@@ -65,6 +65,23 @@ int main( int argc, char * argv[] ){
                     case SDLK_KP_PLUS: escalaObjeto(obj, 1.1f, 1.1f, 1.1f); break;
                     case SDLK_MINUS:
                     case SDLK_KP_MINUS: escalaObjeto(obj, 0.9f, 0.9f, 0.9f); break;
+
+                    // Câmera Translacao
+                    case SDLK_i: transladaCamera(cam, 0, 1, 0); break;
+                    case SDLK_k: transladaCamera(cam, 0, -1, 0); break;
+                    case SDLK_j: transladaCamera(cam, -1, 0, 0); break;
+                    case SDLK_l: transladaCamera(cam, 1, 0, 0); break;
+                    case SDLK_o: transladaCamera(cam, 0, 0, 1); break; //Não vai mudar nada se não tiver perspectiva
+                    case SDLK_u: transladaCamera(cam, 0, 0, -1); break; //Não vai mudar nada se não tiver perspectiva
+
+                    // Câmera Rotação
+                    case SDLK_m: rotacionaCameraoEixoX(cam, 5); break;
+                    case SDLK_n: rotacionaCameraoEixoX(cam, -5); break;
+                    case SDLK_y: rotacionaCameraoEixoY(cam, 5); break;
+                    case SDLK_g: rotacionaCameraoEixoY(cam, -5); break;
+                    case SDLK_h: rotacionaCameraoEixoZ(cam, 5); break;
+                    case SDLK_b: rotacionaCameraoEixoZ(cam, -5); break;
+
                 }
             }
         }
@@ -77,8 +94,6 @@ int main( int argc, char * argv[] ){
 
     desalocaTela(window);
     SDL_Quit();
-
-    imprimeObjetoDBG(obj);
 
     return EXIT_SUCCESS;
 }
@@ -111,10 +126,10 @@ float** criarProjMartrixPerspectiva(float left, float right, float bottom, float
     matriz[1][1] = (2 * near) / (top - bottom);
     matriz[1][2] = (top + bottom) / (top - bottom);
 
-    matriz[2][2] = -(far + near) / (far - near);
+    matriz[2][2] = (far + near) / (far - near);
     matriz[2][3] = -2 * (far * near) / (far - near);
 
-    matriz[3][2] = -1;
+    matriz[3][2] = 1;
 
     return matriz;
 }
@@ -135,7 +150,7 @@ void desenhaObjetoTela(SDL_Renderer *renderer, float **matrizProjecao, tCamera3d
     
     for(int x=0; x<objeto->nPontos; x++){
         for(int y=0; y<4; y++) ponto[y] = objeto->pontos[x][y];
-
+        
         multMatriz4dPonto(objeto->modelMatrix, ponto);
         multMatriz4dPonto(camera->viewMatrix, ponto);
         multMatriz4dPonto(matrizProjecao, ponto);
